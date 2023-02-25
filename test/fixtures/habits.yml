@@ -1,0 +1,21 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  done_today: false
+  current_streak: 1
+  streak_record: 1
+  current_gap: 1
+  total_done: 1
+  total_gap: 1
+  user: one
+
+two:
+  name: MyString
+  done_today: false
+  current_streak: 1
+  streak_record: 1
+  current_gap: 1
+  total_done: 1
+  total_gap: 1
+  user: two
