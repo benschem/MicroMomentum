@@ -8,7 +8,7 @@ class CreateHabits < ActiveRecord::Migration[7.0]
       t.integer :current_gap
       t.integer :total_done
       t.integer :total_gap
-      t.references :user, null: false, foreign_key: true
+      # t.references :user, null: false, foreign_key: true
 
       t.timestamps
     end
