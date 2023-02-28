@@ -9,6 +9,7 @@ class Habit < ApplicationRecord
     @longest_streak = 0
     @current_gap = 0
     @last_gap = 0
+    # @sort_position = 0 => rails g migration add_sort_position_to_habit sort_position:integer
   end
 
   def user_click
@@ -23,7 +24,14 @@ class Habit < ApplicationRecord
     end
   end
 
-  # Need to schedule each morning after 12am to set @done_today to false
+  # Need to schedule this to run each morning first thing
+  def new_day
+    @done_today = false
+  end
+
+  # def custom_sort(position)
+  #   @sort_position = position
+  # end
 
   private
 
