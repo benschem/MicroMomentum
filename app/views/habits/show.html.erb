@@ -1,0 +1,16 @@
+<div>
+  <h3><%= @habit.name %></h3>
+  <p><%= @habit.longest_streak %></p>
+  <% if @habit.done_today %>
+    <p><%= @habit.current_streak %></p>
+    <p><%= @habit.current_streak / @habit.longest_streak * 100 %>% of record</p>
+  <% else %>
+    <p><%= @habit.current_gap %></p>
+  <% end %>
+</div>
+
+<%= link_to "Edit Habit", edit_habit_path(@habit) %>
+<%= link_to "Delete",
+  habit_path(@habit),
+  data: {turbo_method: :delete, turbo_confirm: "Are you sure?"}
+%>

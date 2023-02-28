@@ -1,9 +1,12 @@
 Rails.application.routes.draw do
   devise_for :users
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
-
-  # Defines the root path route ("/")
-  # root "articles#index"
   root to: "home#index"
+  resources :habits
   # get "habits", to: "habits#index"
+  # get "habits/new", to: "habits#new", as: :new_habit
+  # post "habits", to: "habits#create"
+  # get "habits/:id", to: "habits#show", as: :habit
+  # get "habits/:id/edit", to: "habits#edit", as: :edit_habit
+  # patch "habits/:id", to: "habits#update"
+  # delete "habits/:id", to: "habits#destroy"
 end
