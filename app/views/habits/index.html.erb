@@ -1,17 +1,7 @@
-<ul>
-  <% @habits.each do |habit| %>
-    <div>
-      <h3><%= habit.name %></h3>
-      <p><%= habit.longest_streak %></p>
-      <% if habit.done_today %>
-        <p><%= habit.current_streak %></p>
-        <p><%= habit.current_streak / habit.longest_streak * 100 %>% of record</p>
-      <% else %>
-        <p><%= habit.current_gap %></p>
-      <% end %>
-      <%= link_to "View Habit", habit_path(@habit) %>
-    </div>
-  <% end %>
-</ul>
+<h1>All Habits </h1>
+<% @habits.each do |habit| %>
+  <%= render "single_habit", habit: @habit %>
+  <%= link_to "View Habit", habit_path(@habit) %>
+<% end %>
 
-<%= link_to "New Habit", habit_path(@habit) %>
+<%= link_to "Create New Habit", new_habit_path %>

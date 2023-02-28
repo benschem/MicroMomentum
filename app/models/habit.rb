@@ -4,6 +4,7 @@ class Habit < ApplicationRecord
   attr_accessor :name
 
   def initialize(name)
+    super()
     @name = name
     @done_today = false
     @current_streak = 0

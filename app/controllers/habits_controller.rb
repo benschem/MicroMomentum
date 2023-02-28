@@ -6,8 +6,7 @@ class HabitsController < ApplicationController
     @habits = current_user.habits
   end
 
-  def show
-  end
+  def show; end
 
   def new
     @habit = Habit.new
@@ -19,8 +18,7 @@ class HabitsController < ApplicationController
     redirect_to habit_path(@habit)
   end
 
-  def edit
-  end
+  def edit; end
 
   def update
     @habit.update(habit_params)
