@@ -10,17 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_02_27_045737) do
+ActiveRecord::Schema[7.0].define(version: 2023_02_28_090604) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "habits", force: :cascade do |t|
     t.string "name"
     t.bigint "user_id", null: false
+    t.boolean "done_today"
+    t.integer "current_streak"
+    t.integer "longest_streak"
+    t.integer "current_gap"
+    t.integer "last_gap"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.text "record", default: [], array: true
-    t.boolean "done"
     t.index ["user_id"], name: "index_habits_on_user_id"
   end
 
