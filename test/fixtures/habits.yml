@@ -2,20 +2,18 @@
 
 one:
   name: MyString
+  user: one
   done_today: false
   current_streak: 1
-  streak_record: 1
+  longest_streak: 1
   current_gap: 1
-  total_done: 1
-  total_gap: 1
-  user: one
+  last_gap: 1
 
 two:
   name: MyString
+  user: two
   done_today: false
   current_streak: 1
-  streak_record: 1
+  longest_streak: 1
   current_gap: 1
-  total_done: 1
-  total_gap: 1
-  user: two
+  last_gap: 1
