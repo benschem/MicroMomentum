@@ -1,8 +1,14 @@
-<% if user_signed_in? %>
- <div> Welcome <%= current_user.email %> </div>
-  <%= button_to "Sign out", destroy_user_session_path, method: :delete %>
-<% else %>
-  <%= button_to "Sign in", new_user_session_path %>
-<% end %>
-<h1 class="text-3xl font-bold underline">MicroMomentum</h1>
-<%= link_to "All Habits", habits_path %>
+<div class="flex justify-center">
+  <% if user_signed_in? %>
+    <p class="p-5 text-lg font-light">Logged in as <span class="font-mono"><%= current_user.email %></span></p>
+    <%= button_to "Sign out", destroy_user_session_path, method: :delete, class: "text-zinc-500 border border-zinc-500 hover:bg-zinc-500 hover:text-white active:bg-zinc-600 font-bold uppercase text-xs px-4 py-2 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" %>
+  <% else %>
+    <p class="p-5 text-lg font-light">Login to continue</p>
+    <%= button_to "Sign in", new_user_session_path, class: "text-zinc-500 border border-zinc-500 hover:bg-zinc-500 hover:text-white active:bg-zinc-600 font-bold uppercase text-xs px-4 py-2 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" %>
+  <% end %>
+</div>
+
+<h1 class="row-span-1 text-center text-3xl font-bold m-5">MicroMomentum</h1>
+
+<%= link_to "See All Habits", habits_path, class: "text-zinc-500 border border-zinc-500 hover:bg-zinc-500 hover:text-white active:bg-zinc-600 font-bold uppercase text-xs px-4 py-2 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150", type: 'button' %>
+</div>

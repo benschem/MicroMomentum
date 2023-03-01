@@ -12,10 +12,6 @@ class Habit < ApplicationRecord
     @done_today = false
   end
 
-  # def custom_sort(position)
-  #   @sort_position = position
-  # end
-
   private
 
   def mark_done

@@ -1,14 +1,29 @@
-<div>
-  <h3><%= habit.name %></h3>
-  <p>🏆<%= habit.longest_streak %></p>
-  <% if habit.done_today %>
-    <p>🔥<%= habit.current_streak %></p>
+<%# CONTAINER %>
+<div class= "
+  <% if habit.done_today && habit.current_streak >= habit.longest_streak %>
+    <%= 'bg-amber-500 border-amber-700' %>
+  <% elsif habit.done_today %>
+    <%= 'bg-green-400 border-green-700' %>
   <% else %>
-    <p>🚫<%= habit.current_gap %></p>
+    <%='bg-gray-100' %>%
   <% end %>
-  <% if habit.longest_streak != 0 %>
-    <p><%= habit.current_streak / habit.longest_streak * 100 %>%</p>
-  <% else %>
-    <p>0%</p>
-  <% end %>
+   border-2 drop-shadow-md rounded-xl mx-5 my-0 overflow-hidden grid grid-cols-1">
+  <%# STREAK OR GAP %>
+  <div class="grid grid-cols-3 justify-between h-8">
+    <% if habit.done_today %>
+      <p class="mt-2 col-span-1 self-end text-2xl text-orange-500 ml-5">🔥 <%= habit.current_streak %></p>
+    <% else %>
+      <p class="mt-2 col-span-1 self-end text-2xl text-red-700 ml-5">🚫 <%= habit.current_gap %></p>
+    <% end %>
+    <%# NAME %>
+    <h3 class="col-span-1 text-center text-lg font-medium tracking-wide pt-2 px-1 truncate"><%= habit.name %></h3>
+    <%# RECORD %>
+    <p class="col-span-1 justify-self-end self-end text-amber-600 mr-5">🏆 <%= habit.longest_streak %></p>
+  </div>
+  <%# PROGRESS BAR %>
+  <div class="row-start-2 h-3 bg-gray-200 rounded-full mx-4 my-2">
+    <div
+      class="h-full bg-green-600 rounded-full" style="width: <%= habit.longest_streak != 0 ? (habit.current_streak / habit.longest_streak * 100) : 0 %>%">
+    </div>
+  </div>
 </div>

@@ -1,5 +1,5 @@
 <%= form_with model: @habit do |f| %>
-  <%= f.label :name %>
-  <%= f.text_field :name %>
+  <%= f.label :name, class: "block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4" %>
+  <%= f.text_field :name, class: "mt-1 block w-full rounded-md shadow-sm focus:ring focus:ring-indigo-200 focus:ring-opacity-50" %>
   <%= f.submit %>
 <% end %>
