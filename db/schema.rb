@@ -17,11 +17,11 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_28_090604) do
   create_table "habits", force: :cascade do |t|
     t.string "name"
     t.bigint "user_id", null: false
-    t.boolean "done_today"
-    t.integer "current_streak"
-    t.integer "longest_streak"
-    t.integer "current_gap"
-    t.integer "last_gap"
+    t.boolean "done_today", default: false, null: false
+    t.integer "current_streak", default: 0, null: false
+    t.integer "longest_streak", default: 0, null: false
+    t.integer "current_gap", default: 0, null: false
+    t.integer "last_gap", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_habits_on_user_id"

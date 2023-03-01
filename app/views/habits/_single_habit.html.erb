@@ -1,10 +1,14 @@
 <div>
   <h3><%= habit.name %></h3>
-  <p><%= habit.longest_streak %></p>
+  <p>🏆<%= habit.longest_streak %></p>
   <% if habit.done_today %>
-    <p><%= habit.current_streak %></p>
-    <p><%= habit.current_streak / habit.longest_streak * 100 %>% of record</p>
+    <p>🔥<%= habit.current_streak %></p>
   <% else %>
-    <p><%= habit.current_gap %></p>
+    <p>🚫<%= habit.current_gap %></p>
+  <% end %>
+  <% if habit.longest_streak != 0 %>
+    <p><%= habit.current_streak / habit.longest_streak * 100 %>%</p>
+  <% else %>
+    <p>0%</p>
   <% end %>
 </div>

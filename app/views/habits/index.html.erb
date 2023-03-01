@@ -1,7 +1,7 @@
 <h1>All Habits </h1>
 <% @habits.each do |habit| %>
-  <%= render "single_habit", habit: @habit %>
-  <%= link_to "View Habit", habit_path(@habit) %>
+  <%= render "single_habit", habit: habit %>
+  <%= link_to "View Habit", habit_path(habit) %>
 <% end %>
 
 <%= link_to "Create New Habit", new_habit_path %>

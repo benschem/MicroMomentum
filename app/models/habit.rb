@@ -1,18 +1,6 @@
 class Habit < ApplicationRecord
   belongs_to :user
   validates :name, presence: true
-  attr_accessor :name
-
-  def initialize(name)
-    super()
-    @name = name
-    @done_today = false
-    @current_streak = 0
-    @longest_streak = 0
-    @current_gap = 0
-    @last_gap = 0
-    # @sort_position = 0 => rails g migration add_sort_position_to_habit sort_position:integer
-  end
 
   def change_state
     @done_today ? mark_not_done : mark_done

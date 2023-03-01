@@ -14,8 +14,12 @@ class HabitsController < ApplicationController
 
   def create
     @habit = Habit.new(habit_params)
-    @habit.save
-    redirect_to habit_path(@habit)
+    @habit.user = current_user
+    if @habit.save
+      redirect_to habits_path
+    else
+      render :new, status: :unprocessable_entity
+    end
   end
 
   def edit; end
