@@ -1,29 +1,39 @@
 <%# CONTAINER %>
 <div class= "
-  <% if habit.done_today && habit.current_streak >= habit.longest_streak %>
-    <%= 'bg-amber-500 border-amber-700' %>
+  <% if habit.done_today && habit.progress == 100 %>
+    <%= 'bg-yellow-400 border-yellow-300' %>
   <% elsif habit.done_today %>
-    <%= 'bg-green-400 border-green-700' %>
-  <% else %>
-    <%='bg-gray-100' %>%
+    <%= 'bg-green-400 border-green-300' %>
+  <% elsif !habit.done_today %>
+    <%= 'bg-gray-50' %>
   <% end %>
-   border-2 drop-shadow-md rounded-xl mx-5 my-0 overflow-hidden grid grid-cols-1">
+   backdrop-opacity-0 border-2 drop-shadow-md rounded-xl mx-5 my-0 overflow-hidden grid grid-cols-1">
+
   <%# STREAK OR GAP %>
   <div class="grid grid-cols-3 justify-between h-8">
     <% if habit.done_today %>
-      <p class="mt-2 col-span-1 self-end text-2xl text-orange-500 ml-5">🔥 <%= habit.current_streak %></p>
+      <p class="mt-2 col-span-1 self-end text-2xl text-slate-800 ml-5">🔥 <%= habit.current_streak %></p>
     <% else %>
-      <p class="mt-2 col-span-1 self-end text-2xl text-red-700 ml-5">🚫 <%= habit.current_gap %></p>
+      <p class="mt-2 col-span-1 self-end text-2xl text-slate-800 ml-5">🚫 <%= habit.current_gap %></p>
     <% end %>
+
     <%# NAME %>
-    <h3 class="col-span-1 text-center text-lg font-medium tracking-wide pt-2 px-1 truncate"><%= habit.name %></h3>
+    <h3 class="col-span-1 text-center text-lg text-slate-800 font-medium tracking-wide pt-2 px-1 truncate"><%= habit.name %></h3>
+
     <%# RECORD %>
-    <p class="col-span-1 justify-self-end self-end text-amber-600 mr-5">🏆 <%= habit.longest_streak %></p>
+    <p class="col-span-1 justify-self-end self-end text-slate-800 mr-5">🏆 <%= habit.longest_streak %></p>
   </div>
+
   <%# PROGRESS BAR %>
   <div class="row-start-2 h-3 bg-gray-200 rounded-full mx-4 my-2">
-    <div
-      class="h-full bg-green-600 rounded-full" style="width: <%= habit.longest_streak != 0 ? (habit.current_streak / habit.longest_streak * 100) : 0 %>%">
+    <%# PROGRESS METER %>
+    <div class="h-full rounded-full w-[<%= habit.progress %>%]
+      <% if habit.progress == 100 %>
+        <%= 'bg-orange-500' %>
+      <% else %>
+        <%= 'bg-green-500' %>
+      <% end %>
+    ">
     </div>
   </div>
 </div>

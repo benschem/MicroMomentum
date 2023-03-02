@@ -1,6 +1,6 @@
 class HabitsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_habit, only: [:show, :edit, :update, :destroy]
+  before_action :set_habit, only: [:show, :edit, :update, :destroy, :mark_done]
 
   def index
     @habits = current_user.habits
@@ -32,6 +32,10 @@ class HabitsController < ApplicationController
   def destroy
     @habit.destroy
     redirect_to habits_path, status: :see_other
+  end
+
+  def click
+    @habit.change_state
   end
 
   private
