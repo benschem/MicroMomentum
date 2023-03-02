@@ -1,39 +1,33 @@
-<%# CONTAINER %>
+<%# HABIT CONTAINER %>
 <div class= "
-  <% if habit.done_today && habit.progress == 100 %>
-    <%= 'bg-yellow-400 border-yellow-300' %>
-  <% elsif habit.done_today %>
-    <%= 'bg-green-400 border-green-300' %>
-  <% elsif !habit.done_today %>
-    <%= 'bg-gray-50' %>
-  <% end %>
-   backdrop-opacity-0 border-2 drop-shadow-md rounded-xl mx-5 my-0 overflow-hidden grid grid-cols-1">
+  <%= habit.done_today ? 'bg-green-300 border-green-400' : 'bg-gray-50 border-gray-200' %>
+   border-2 backdrop-opacity-0 drop-shadow-md rounded-xl mx-5 mt-3 mb-0 overflow-hidden grid grid-cols-1">
 
-  <%# STREAK OR GAP %>
-  <div class="grid grid-cols-3 justify-between h-8">
-    <% if habit.done_today %>
-      <p class="mt-2 col-span-1 self-end text-2xl text-slate-800 ml-5">🔥 <%= habit.current_streak %></p>
-    <% else %>
-      <p class="mt-2 col-span-1 self-end text-2xl text-slate-800 ml-5">🚫 <%= habit.current_gap %></p>
-    <% end %>
+<%# INFO CONTAINER %>
+  <div class="flex justify-between h-8">
+
+    <%# STREAK OR GAP %>
+    <p class="flex-none mt-2 ml-5 text-xl text-slate-800">
+      <%= habit.done_yesterday ? "🔥 #{habit.current_streak}" : "🚫 #{habit.current_gap}" %>
+    </p>
 
     <%# NAME %>
-    <h3 class="col-span-1 text-center text-lg text-slate-800 font-medium tracking-wide pt-2 px-1 truncate"><%= habit.name %></h3>
+    <h3 class="grow self-end px-3 truncate text-center text-md text-slate-800 font-medium tracking-wide "><%= habit.name %></h3>
 
     <%# RECORD %>
-    <p class="col-span-1 justify-self-end self-end text-slate-800 mr-5">🏆 <%= habit.longest_streak %></p>
+    <p class="flex-none mt-3 mr-5 text-slate-800"><%= habit.longest_streak %> 🏆</p>
   </div>
 
-  <%# PROGRESS BAR %>
-  <div class="row-start-2 h-3 bg-gray-200 rounded-full mx-4 my-2">
-    <%# PROGRESS METER %>
-    <div class="h-full rounded-full w-[<%= habit.progress %>%]
-      <% if habit.progress == 100 %>
-        <%= 'bg-orange-500' %>
-      <% else %>
-        <%= 'bg-green-500' %>
-      <% end %>
-    ">
+  <%# PROGRESS BAR CONTAINER%>
+  <div class="row-start-2 h-3 <%= habit.done_today ? 'bg-gray-50' : 'bg-gray-200' %> rounded-full mx-4 my-2 w-auto">
+
+    <%# PROGRESS BAR %>
+    <div class="h-full rounded-full <%= (habit.progress == 100) ? 'bg-orange-400' : 'bg-green-600' %>" style="width: <%= habit.progress %>%">
     </div>
+  </div>
+
+  <%# VIEW HABIT LINK %>
+  <div class="hidden">
+    <%= link_to "View Habit", habit_path(habit), class: "text-zinc-500 border border-zinc-500 hover:bg-zinc-500 hover:text-white active:bg-zinc-600 font-bold uppercase text-xs px-4 py-2 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150", type: "button" %>
   </div>
 </div>

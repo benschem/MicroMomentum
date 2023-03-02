@@ -12,44 +12,43 @@ class Habit < ApplicationRecord
     (current_streak.to_f.fdiv(longest_streak.to_f) * 100).to_i
   end
 
-  # Need to schedule new_day to run each morning first thing
+  # Need to schedule new_day to run first thing each morning
   def new_day
-    @current_streak = 0 unless @done_today
-    @done_today = false
+    self.done_yesterday = self.done_today
+    self.done_today = false
+    self.current_streak = 0 unless @done_today
   end
 
   private
 
   def mark_done
-    done_today = true
+    self.done_today = true
     increase_streak
     reset_gap
   end
 
   def mark_not_done
-  done_today = false
+    self.done_today = false
     undo_increase_streak
     undo_reset_gap
   end
 
   def increase_streak
-    current_streak += 1
-    longest_streak += 1 if current_streak > longest_streak
-    date_last_completed = Date.today
+    self.current_streak += 1
+    self.longest_streak += 1 if current_streak > longest_streak
   end
 
   def undo_increase_streak
-    current_streak -= 1
-    longest_streak -= 1 if longest_streak > current_streak
-    date_last_completed = Date.yesterday
+    self.current_streak -= 1
+    self.longest_streak -= 1 if longest_streak > current_streak
   end
 
   def reset_gap
-    last_gap = @current_gap
-    current_gap = 0
+    self.last_gap = @current_gap
+    self.current_gap = 0
   end
 
   def undo_reset_gap
-    current_gap = @last_gap
+    self.current_gap = @last_gap
   end
 end
