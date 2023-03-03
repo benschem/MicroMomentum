@@ -1,7 +1,10 @@
 <%# HABIT CONTAINER %>
 <li class= "
   <%= habit.done_today ? 'bg-green-300 border-green-400' : 'bg-gray-50 border-gray-200' %>
-   border-2 backdrop-opacity-0 drop-shadow-md rounded-xl mx-5 mt-3 mb-0 overflow-hidden grid grid-cols-1">
+  cursor-pointer border-2 backdrop-opacity-0 drop-shadow-md rounded-xl mx-5 mt-3 mb-0 overflow-hidden grid grid-cols-1"
+  data-controller="habit"
+  data-action="click->habit#changeState"
+  data-habit="<%= habit %>">
 
   <%# INFO CONTAINER (TOP) %>
   <div class="flex justify-between h-8">
