@@ -34,8 +34,10 @@ class HabitsController < ApplicationController
     redirect_to habits_path, status: :see_other
   end
 
-  def click
-    @habit.change_state
+  def change_state
+    clicked_habit = params[:habit]
+    result = Habit.change_state(clicked_habit)
+    render json: { result: result }
   end
 
   private
