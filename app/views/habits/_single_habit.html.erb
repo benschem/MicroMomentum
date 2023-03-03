@@ -22,7 +22,10 @@
   <div class="row-start-2 h-3 <%= habit.done_today ? 'bg-gray-50' : 'bg-gray-200' %> rounded-full mx-4 my-2 w-auto">
 
     <%# PROGRESS BAR %>
-    <div class=" h-full rounded-full <%= (habit.progress == 100) ? 'bg-orange-400' : 'bg-green-600' %>" style="width: <%= habit.progress %>%">
+    <div class=" h-full rounded-full flex items-center justify-center <%= (habit.progress == 100) ? 'bg-orange-400' : 'bg-green-600' %>" style="width: <%= habit.progress %>%">
+
+      <%# BAR SHINE %>
+      <div class="h-1/4 rounded-full bg-white w-[97%] mb-1 <%= (habit.progress == 100) ? 'bg-orange-300' : 'bg-green-500' %>"></div>
     </div>
   </div>
 
