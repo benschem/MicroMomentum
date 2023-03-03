@@ -45,7 +45,7 @@ class Habit < ApplicationRecord
 
   def reset_gap
     self.last_gap = @current_gap
-    self.current_gap = 0
+    self.current_gap = 1
   end
 
   def undo_reset_gap

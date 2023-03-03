@@ -20,7 +20,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_02_052808) do
     t.boolean "done_today", default: false, null: false
     t.integer "current_streak", default: 0, null: false
     t.integer "longest_streak", default: 0, null: false
-    t.integer "current_gap", default: 0, null: false
+    t.integer "current_gap", default: 1, null: false
     t.integer "last_gap", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
