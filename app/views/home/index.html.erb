@@ -1,14 +1,18 @@
-<div class="flex justify-center">
+<h1 class="text-center text-3xl font-bold m-5 text-slate-800 dark:text-slate-50">MicroMomentum</h1>
+
+<div class="container-md">
   <% if user_signed_in? %>
-    <p class="p-5 text-lg font-light">Logged in as <span class="font-mono"><%= current_user.email %></span></p>
-    <%= button_to "Sign out", destroy_user_session_path, method: :delete, class: "text-zinc-500 border border-zinc-500 hover:bg-zinc-500 hover:text-white active:bg-zinc-600 font-bold uppercase text-xs px-4 py-2 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" %>
+    <p class="text-center text-lg font-light text-slate-800 dark:text-slate-50">Logged in as <span class="font-mono"><%= current_user.email %></span></p>
+
+    <%= button_to "Sign out", destroy_user_session_path, method: :delete, class: "text-slate-500 dark:slate-100 border border-slate-500 dark:slate-100 hover:bg-slate-500 hover:dark:bg-slate-100 hover:text-slate-50 hover:dark:text-slate-600 active:bg-slate-600 font-bold uppercase text-xs px-4 py-2 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" %>
+
   <% else %>
-    <p class="p-5 text-lg font-light">Login to continue</p>
-    <%= button_to "Sign in", new_user_session_path, class: "text-zinc-500 border border-zinc-500 hover:bg-zinc-500 hover:text-white active:bg-zinc-600 font-bold uppercase text-xs px-4 py-2 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" %>
+    <p class="text-lg font-light text-slate-800 dark:text-slate-50">Login to continue</p>
+
+    <%= button_to "Sign in", new_user_session_path, class: "text-slate-500 dark:slate-100 border border-slate-500 dark:slate-100 hover:bg-slate-500 hover:dark:bg-slate-100 hover:text-slate-50 hover:dark:text-slate-600 active:bg-slate-600 font-bold uppercase text-xs px-4 py-2 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" %>
   <% end %>
-</div>
 
-<h1 class="row-span-1 text-center text-3xl font-bold m-5">MicroMomentum</h1>
+  <%= link_to "View Habits", habits_path, class: "text-slate-500 dark:slate-100 border border-slate-500 dark:slate-100 hover:bg-slate-500 hover:dark:bg-slate-100 hover:text-slate-50 hover:dark:text-slate-600 active:bg-slate-600 font-bold uppercase text-xs px-4 py-2 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150", type: 'button' %>
+  </div>
 
-<%= link_to "See All Habits", habits_path, class: "text-zinc-500 border border-zinc-500 hover:bg-zinc-500 hover:text-white active:bg-zinc-600 font-bold uppercase text-xs px-4 py-2 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150", type: 'button' %>
 </div>
