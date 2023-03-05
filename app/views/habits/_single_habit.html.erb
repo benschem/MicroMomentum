@@ -1,37 +1,37 @@
 <%# HABIT CONTAINER %>
 <li class= "
   <%= habit.done_today ? 'bg-green-300 border-green-400 dark:text-slate-900': 'bg-slate-50 dark:bg-slate-900 border-slate-200 dark:border-slate-700  dark:text-slate-50' %>
-   border-2 backdrop-opacity-0 drop-shadow-md rounded-xl mx-5 mt-3 mb-0 overflow-hidden container-m-auto flex text-slate-600 sm:py-2">
+   cursor-pointer text-slate-600 border-2 backdrop-opacity-0 drop-shadow-md rounded-xl mx-5 mt-3 mb-0 overflow-clip container-m-auto flex max-w-xl sm:py-2">
 
   <%# STREAK/GAP %>
-  <div class="grid h-min content-center pl-3 my-2">
+  <div class="grid grid-rows-2 items-stretch h-min pl-3 mt-3 mb-2">
     <% if habit.done_yesterday %>
-      <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 22 22' stroke-width='1.5' class='self-end w-8 h-8 fill-yellow-400 stroke-orange-600'>
+      <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 22 22' stroke-width='1.5' class='w-8 h-8 fill-yellow-400 stroke-orange-600'>
         <path stroke-linecap='round' stroke-linejoin='round' d='M15.362 5.214A8.252 8.252 0 0112 21 8.25 8.25 0 016.038 7.048 8.287 8.287 0 009 9.6a8.983 8.983 0 013.361-6.867 8.21 8.21 0 003 2.48z' />
         <path stroke-linecap='round' stroke-linejoin='round' d='M12 18a3.75 3.75 0 00.495-7.467 5.99 5.99 0 00-1.925 3.546 5.974 5.974 0 01-2.133-1A3.75 3.75 0 0012 18z' class="fill-orange-400 stroke-orange-600" />
       </svg>
-      <p class="self-start text-center text-xl"><%= habit.current_streak %></p>
+      <p class="ml-0.5 mt-1 text-center text-xl"><%= habit.current_streak %></p>
     <% else %>
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 22 22" stroke-width="1.5" class="w-8 h-8 fill-red-300 stroke-red-800">
         <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
       </svg>
-      <p class="self-start text-center text-xl"><%= habit.current_gap %><p>
+      <p class="ml-0.5 mt-1 text-center text-xl"><%= habit.current_gap %><p>
     <% end %>
   </div>
 
-  <%# GROUP NAME, RECORD, PROGRESS BAR %>
-  <div class="flex-grow grid grid-rows-2">
+  <%# NAME, RECORD, PROGRESS BAR %>
+  <div class="grid grid-rows-2 w-full">
 
-    <%# GROUP NAME & RECORD %>
-    <div class="flex justify-between h-8">
+    <%# NAME & RECORD %>
+    <div class="flex min-w-0 justify-between h-8 mt-2">
 
       <%# NAME %>
-      <h3 class="ml-2 mt-2.5 overflow-clip px-3  text-l sm:text-xl text-left font-medium tracking-wide"><%= habit.name %></h3>
+      <h3 class="w-full ml-2 mt-2.5 px-3 place-self-center text-l sm:text-xl text-center font-medium tracking-wide shrink truncate "><%= habit.name %></h3>
 
       <%# RECORD %>
-      <div class="flex mt-2 mr-5 text-xl">
-        <p class="mr-2"><%= habit.longest_streak %></p>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" class="w-6 h-6 mt-0.5">
+      <div class="flex mt-2 mr-5">
+        <p class="mr-2 mt-0.5 text-l sm:text-xl"><%= habit.longest_streak %></p>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" class="w-5 h-5 mt-1 sm:w-6 sm:h-6 sm:0.5">
           <g stroke="none" stroke-width="2" fill-rule="evenodd" stroke-linejoin="round">
             <g transform="translate(4.000000, 4.000000)" class="stroke-yellow-600" stroke-width="3">
               <path d="M20,26 C26.627417,26 32,20.4693999 32,13.6470588 L32,0 L8,0 L8,13.6470588 C8,20.4693999 13.372583,26 20,26 Z" class="fill-yellow-400"></path>
