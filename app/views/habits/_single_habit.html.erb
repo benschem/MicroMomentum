@@ -9,7 +9,7 @@
   <%# STREAK/GAP %>
   <div class="flex flex-row grow-0 items-start ml-2">
     <% if habit.done_yesterday %>
-      <svg class="w-6 h-6 mt-1 ml-1" fill="#000000" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+      <svg class="w-6 h-6 ml-2" fill="#000000" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
         <path d="M57 26.2s-3 2.8-8.1 6.1C47.5 24.2 43.6 14.2 36 2c0 0-2.5 13.1-10.8 25.4c-3.6-5.6-5.2-10-5.2-10C-6 43.5 15.6 62 29.2 62c17.4 0 32.7-8.4 27.8-35.8" fill="#ff9d33"></path>
         <path d="M46.7 49.4c1.5-3.3 2.6-7.6 2.8-13c0 0-2.1 1.8-5.7 4.1c-1-5.4-3.7-12-9-20.2c0 0-1.7 8.7-7.5 17c-2.5-3.7-3.6-6.7-3.6-6.7c-4.3 6.8-6 12.2-6.1 16.5c-2.4-.9-3.9-1.6-3.9-1.6c4.1 12.2 12.6 14.9 16.4 14.9c6.8 0 13.7-2 20.5-11.7c0-.1-1.5.3-3.9.7" fill="#facc15"></path>
         <path d="M21.9 43.9s2.8 3.8 4.9 2.9c0 0 4-6.3 9.8-9.8c0 0-1.2 9.6.2 11.3c1.8 2.3 6.7-2.5 6.7-2.5c0 5.7-6.2 12.8-11.8 12.8c-5.4 0-13.2-6.2-9.8-14.7" fill="#fde047"></path>
@@ -20,7 +20,7 @@
         </g>
       </svg>
     <% else %>
-      <svg class="w-6 h-6 mt-1 ml-1" fill="#000000" viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg">
+      <svg class="w-6 h-6 ml-2 pr-0.5" fill="#000000" viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg">
       <path d="M57.16 8.42l-52 104c-1.94 4.02-.26 8.85 3.75 10.79c1.08.52 2.25.8 3.45.81h104c4.46-.04 8.05-3.69 8.01-8.15a8.123 8.123 0 0 0-.81-3.45l-52-104a8.067 8.067 0 0 0-14.4 0z" fill="#eab308"></path>
       <path d="M53.56 15.72l-48.8 97.4c-1.83 3.77-.25 8.31 3.52 10.14c.99.48 2.08.74 3.18.76h97.5a7.55 7.55 0 0 0 7.48-7.62a7.605 7.605 0 0 0-.78-3.28l-48.7-97.4a7.443 7.443 0 0 0-9.93-3.47a7.484 7.484 0 0 0-3.47 3.47z" fill="#facc15"></path>
       <g fill="#424242" opacity=".2">
@@ -41,7 +41,7 @@
       <circle cx="31.36" cy="75.33" r="3.3" fill="#Fde047"></circle>
       </svg>
     <% end %>
-      <p class="ml-1 mt-1 text-xl"><%= habit.sentence %><p>
+      <p class="ml-1 mt-2 text-sm <%= 'text-orange-400' if !habit.done_yesterday %>"><%= habit.done_yesterday ? habit.days_as_sentence(habit.current_streak) : habit.days_as_sentence(habit.current_gap) %><p>
   </div>
 
 
