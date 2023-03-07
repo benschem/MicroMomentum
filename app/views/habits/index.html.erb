@@ -10,8 +10,8 @@
   </div>
 </div>
 
-<div class="flex justify-center">
-  <ul class="mb-10">
+<div class="mt-3 flex justify-center w-fit">
+  <ul class="mb-10 flex flex-row flex-wrap justify-center">
     <% @habits.each do |habit| %>
       <%= render "single_habit", habit: habit %>
     <% end %>
