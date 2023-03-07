@@ -1,15 +1,16 @@
 <%# HABIT CARD %>
-<li class= "
-  <%= habit.done_today ? 'bg-green-200 dark:bg-green-700 border-green-500  dark:border-green-300': 'bg-slate-50 dark:bg-slate-900 border-slate-200 dark:border-slate-700' %>
-   dark:text-slate-50 cursor-pointer text-slate-600 border-2 backdrop-opacity-0 drop-shadow-md rounded-xl overflow-clip flex flex-col m-2 w-80">
+<li class= "<%= habit.done_today? ? 'bg-green-200 dark:bg-green-700 border-green-500 dark:border-green-300': 'bg-slate-50 dark:bg-slate-900 border-slate-200 dark:border-slate-700' %> cursor-pointer text-slate-600 dark:text-slate-50 border-2 drop-shadow-lg rounded-xl overflow-clip flex flex-col m-2 w-96 sm:w-72">
 
   <%# NAME %>
-  <h3 class="px-11 py-3 text-center text-l font-medium tracking-wide whitespace-normal break-words truncate"><%= habit.name %></h3>
+  <h3 class="px-7 py-3 mt-1 grow text-left text-l font-medium tracking-wide"><%= habit.name %></h3>
+
+  <%# LINE %>
+  <span class="h-0.5 w-11/12 self-center my-1 <%= habit.done_today? ? 'bg-green-500 dark:bg-green-300' : 'bg-slate-200 dark:bg-slate-700' %>"></span>
 
   <%# STREAK/GAP %>
-  <div class="flex flex-row grow-0 items-start ml-2">
+  <div class="flex flex-row items-start mt-2 mx-6">
     <% if habit.done_yesterday %>
-      <svg class="w-6 h-6 ml-2" fill="#000000" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+      <svg class="w-6 h-6 ml-1" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
         <path d="M57 26.2s-3 2.8-8.1 6.1C47.5 24.2 43.6 14.2 36 2c0 0-2.5 13.1-10.8 25.4c-3.6-5.6-5.2-10-5.2-10C-6 43.5 15.6 62 29.2 62c17.4 0 32.7-8.4 27.8-35.8" fill="#ff9d33"></path>
         <path d="M46.7 49.4c1.5-3.3 2.6-7.6 2.8-13c0 0-2.1 1.8-5.7 4.1c-1-5.4-3.7-12-9-20.2c0 0-1.7 8.7-7.5 17c-2.5-3.7-3.6-6.7-3.6-6.7c-4.3 6.8-6 12.2-6.1 16.5c-2.4-.9-3.9-1.6-3.9-1.6c4.1 12.2 12.6 14.9 16.4 14.9c6.8 0 13.7-2 20.5-11.7c0-.1-1.5.3-3.9.7" fill="#facc15"></path>
         <path d="M21.9 43.9s2.8 3.8 4.9 2.9c0 0 4-6.3 9.8-9.8c0 0-1.2 9.6.2 11.3c1.8 2.3 6.7-2.5 6.7-2.5c0 5.7-6.2 12.8-11.8 12.8c-5.4 0-13.2-6.2-9.8-14.7" fill="#fde047"></path>
@@ -20,7 +21,7 @@
         </g>
       </svg>
     <% else %>
-      <svg class="w-6 h-6 ml-2 pr-0.5" fill="#000000" viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg">
+      <svg class="w-6 h-6 ml-1" viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg">
       <path d="M57.16 8.42l-52 104c-1.94 4.02-.26 8.85 3.75 10.79c1.08.52 2.25.8 3.45.81h104c4.46-.04 8.05-3.69 8.01-8.15a8.123 8.123 0 0 0-.81-3.45l-52-104a8.067 8.067 0 0 0-14.4 0z" fill="#eab308"></path>
       <path d="M53.56 15.72l-48.8 97.4c-1.83 3.77-.25 8.31 3.52 10.14c.99.48 2.08.74 3.18.76h97.5a7.55 7.55 0 0 0 7.48-7.62a7.605 7.605 0 0 0-.78-3.28l-48.7-97.4a7.443 7.443 0 0 0-9.93-3.47a7.484 7.484 0 0 0-3.47 3.47z" fill="#facc15"></path>
       <g fill="#424242" opacity=".2">
@@ -41,39 +42,33 @@
       <circle cx="31.36" cy="75.33" r="3.3" fill="#Fde047"></circle>
       </svg>
     <% end %>
-      <p class="ml-1 mt-2 text-sm <%= 'text-orange-400' if !habit.done_yesterday %>"><%= habit.done_yesterday ? habit.days_as_sentence(habit.current_streak) : habit.days_as_sentence(habit.current_gap) %><p>
+    <p class="ml-1.5 place-self-end text-sm tracking-wide <%= 'text-orange-400' if !habit.done_yesterday? %>"><%= habit.done_yesterday? ? habit.days_as_sentence(habit.current_streak) : "-#{habit.days_as_sentence(habit.current_gap)}" %><p>
   </div>
 
-
-  <div class="flex flex-row justify-items-start mb-2 mx-2">
+  <div class="flex mx-6 my-3">
     <%# PROGRESS METER%>
-    <div class="mx-1 my-1 flex grow h-4 place-items-start rounded-l-lg
-    <%= habit.done_today ? 'bg-slate-50 dark:bg-slate-600' : 'bg-slate-200 dark:bg-slate-500' %>">
-
+    <div class="relative ml-1 my-1 flex h-4 w-11/12 place-items-start rounded-l-lg <%= habit.done_today? ? 'bg-slate-50 dark:bg-slate-600' : 'bg-slate-200 dark:bg-slate-500' %>">
       <%# PROGRESS BAR %>
-      <div class="h-full
-      <%= (habit.progress != 0) ? 'border-2 rounded-l-lg' : 'border-0' %>
-      <%= (habit.progress == 100) ? 'bg-yellow-400 border-yellow-500 dark:border-yellow-200 rounded-l-lg' : 'bg-green-400 border-green-500 dark:border-green-300' %>"
-      style="width: <%= habit.progress %>%">
-
+      <div class="h-full animate-[4s_linear_1s] <%= habit.progress != 0 ? 'border-2 rounded-l-lg' : 'border-0' %> <%= habit.progress == 100 ? 'bg-yellow-400 border-yellow-500 dark:border-yellow-200 rounded-l-lg' : 'bg-green-400 border-green-500 dark:border-green-300' %>" style="width: <%= habit.progress %>%">
         <%# BAR SHINE %>
-        <div class="h-1/4 rounded-l-lg ml-1 mr-0.5 mt-0.5 <%= (habit.progress == 100) ? 'bg-yellow-300 dark:bg-yellow-200 mr-1' : 'bg-green-300' %>"></div>
+        <div class="animate-[4s_linear_1s] h-1/4 rounded-l-lg ml-1 mr-0.5 mt-0.5 <%= habit.progress == 100 ? 'bg-yellow-300 dark:bg-yellow-200 mr-1' : 'bg-green-300' %>"></div>
       </div>
     </div>
 
     <%# HIGH SCORE %>
-    <p class="text-sm mr-1 place-self-center"><%= habit.longest_streak %></p>
+    <p class="text-sm self-center mx-1"><%= habit.longest_streak %></p>
+
     <%# TROPHY %>
-    <svg class="w-6 h-6 mb-0.5 mr-1" fill="#000000" version="1.1" viewBox="0 0 512 512" xml:space="preserve" xmlns="http://www.w3.org/2000/svg">
-      <rect x="142.85" y="486.51" width="225.65" height="24.763" fill="#56361D"/>
+    <svg class="w-6 h-6" version="1.1" viewBox="0 0 512 512" xml:space="preserve" xmlns="http://www.w3.org/2000/svg">
+      <rect x="142.85" y="486.51" width="225.65" height="24.763" fill="#a46a32"/>
       <path d="m223.07 256.17v60.773c8.126 0 14.712 6.587 14.712 14.712v96.74h36.49v-96.74c0-8.126 6.587-14.712 14.712-14.712v-50.773h-65.914z" fill="#eab308"/>
-      <rect x="223.06" y="251.21" width="65.919" height="40.689" enable-background="new" fill="#640" opacity=".16"/>
+      <rect x="223.06" y="251.21" width="65.919" height="40.689" enable-background="new" fill="#8f5d2c" opacity=".16"/>
       <path d="m274.38 271.34h-36.756c-50.613 0-91.644-41.03-91.644-91.644v-179.7h220.04v179.7c1e-3 50.614-41.03 91.644-91.643 91.644z" fill="#facc15"/>
-      <g fill="#640">
+      <g fill="#8f5d2c">
         <path d="m334.83 463.28h-157.34v-32.574c0-6.801 5.513-12.314 12.314-12.314h132.72c6.801 0 12.314 5.513 12.314 12.314v32.574h1e-3z"/>
         <rect x="142.85" y="452.84" width="225.78" height="58.726"/>
       </g>
-      <g fill="#56361D">
+      <g fill="#a46a32">
         <path d="m310.42 430.73 0.109 22.353 24.403-0.046-0.109-22.307c-0.013-6.801-5.536-12.305-12.338-12.291l-23.489 0.044c6.373 0.457 11.412 5.754 11.424 12.247z"/>
         <polygon points="368.62 452.85 344.21 452.9 344.32 511.57 142.95 511.95 142.95 512 368.73 511.57"/>
       </g>
@@ -83,12 +78,12 @@
       </g>
       <rect x="145.97" y="75.284" width="219.83" height="77.612" fill="#eab308"/>
       <path d="m189 184.95c-4.324 0-7.83-3.506-7.83-7.83v-149.37c0-4.324 3.506-7.83 7.83-7.83s7.83 3.506 7.83 7.83v149.37c1e-3 4.324-3.505 7.83-7.83 7.83z" fill="#Fde047"/>
-      <g fill="#640">
+      <g fill="#8f5d2c">
         <rect x="366.02" y="40.707" width="14.996" height="129.11" enable-background="new" opacity=".16"/>
         <rect x="130.98" y="40.667" width="14.996" height="129.11" enable-background="new" opacity=".16"/>
         <path d="m335.94 0v157.46c0 50.613-41.03 91.644-91.644 91.644h-36.756c-13.653 0-26.606-2.99-38.246-8.344 16.782 18.763 41.172 30.576 68.326 30.576h36.756c50.613 0 91.644-41.03 91.644-91.644v-179.7h-30.08z" enable-background="new" opacity=".31"/>
       </g>
-      <rect x="177.48" y="439.03" width="136.02" height="14.046" fill="#56361D"/>
+      <rect x="177.48" y="439.03" width="136.02" height="14.046" fill="#a46a32"/>
     </svg>
   </div>
 
