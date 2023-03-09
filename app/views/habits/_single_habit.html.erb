@@ -5,14 +5,23 @@
   <%# < class="h-0.5 w-10/12 self-center my-3 <%= habit.done_today? ? 'bg-green-500 dark:bg-green-300' : 'bg-slate-200 dark:bg-slate-700' %>
 
   <%# LENGTH OF CURRENT STREAK IN DAYS %>
-  <p class="ml-14 mt-3 place-self-start text-sm tracking-wide <%= habit.progress == 100 ? 'text-yellow-500 dark:text-yellow-200' : 'text-green-500 dark:text-green-300' %><%= 'text-orange-500 dark:text-orange-300' if !habit.done_today? ? 'text-green-500' : 'text-slate-600 dark:text-slate-300' %>">
+  <p class="ml-12 mt-3 place-self-start text-sm tracking-wide
+    <%= habit.done_today? ? 'text-green-500 dark:text-green-300' : 'text-red-600 dark:text-red-500' %>
+    <%= 'text-yellow-500 dark:text-yellow-200' if habit.progress == 100 %>
+  ">
     <%= habit.done_yesterday? ? habit.days_as_sentence(habit.current_streak) : "-#{habit.days_as_sentence(habit.current_gap)}" %>
   </p>
-
-  <div class="mx-4 mb-4 flex flex-row relative place-items-center grow-0 overflow-visible">
+  <div class="mx-4 flex flex-row relative place-items-center grow-0 overflow-visible">
     <% if habit.done_yesterday? %>
     <%# FLAME %>
-    <div class="absolute left-0 rounded-full h-10 w-10 flex items-center justify-center <%= habit.done_today? ? 'bg-slate-50 dark:bg-slate-600' : 'bg-slate-200 dark:bg-slate-700' %> <%= habit.progress != 0 ? 'border-2' : 'border-0' %> <%= habit.progress == 100 ? 'bg-yellow-400 border-yellow-500 dark:border-yellow-200' : 'bg-green-400 border-green-500 dark:border-green-300' %>">
+    <div class="absolute left-0 rounded-full h-9 w-9 flex items-center justify-center
+      <%= 'border-2 border-green-500 dark:border-green-300' if habit.progress > 0 %>
+      <%= 'border-yellow-500 dark:border-yellow-200' if habit.progress == 100 %>
+      <%= 'bg-green-300 dark:bg-green-400' if habit.done_yesterday? && habit.progress != 100 %>
+      <%= 'bg-yellow-300 dark:bg-yellow-400' if habit.progress == 100 && habit.done_today? %>
+      <%= 'bg-red-500 dark:bg-red-500 border-red-600 dark:border-red-300' if !habit.done_today? %>
+
+    ">
       <svg class="w-6 h-6" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
         <path d="M57 26.2s-3 2.8-8.1 6.1C47.5 24.2 43.6 14.2 36 2c0 0-2.5 13.1-10.8 25.4c-3.6-5.6-5.2-10-5.2-10C-6 43.5 15.6 62 29.2 62c17.4 0 32.7-8.4 27.8-35.8" fill="#ff9d33"></path>
         <path d="M46.7 49.4c1.5-3.3 2.6-7.6 2.8-13c0 0-2.1 1.8-5.7 4.1c-1-5.4-3.7-12-9-20.2c0 0-1.7 8.7-7.5 17c-2.5-3.7-3.6-6.7-3.6-6.7c-4.3 6.8-6 12.2-6.1 16.5c-2.4-.9-3.9-1.6-3.9-1.6c4.1 12.2 12.6 14.9 16.4 14.9c6.8 0 13.7-2 20.5-11.7c0-.1-1.5.3-3.9.7" fill="#facc15"></path>
@@ -51,11 +60,22 @@
     <% end %>
 
     <%# PROGRESS METER%>
-    <div class="ml-2.5 flex h-4 w-11/12 place-items-start rounded-l-lg <%= habit.done_today? ? 'bg-slate-50 dark:bg-slate-600' : 'bg-slate-200 dark:bg-slate-700' %>">
+    <div class="ml-2.5 flex h-4 w-11/12 place-items-start rounded-l-lg
+      <%= habit.done_today? ? 'bg-slate-50 dark:bg-slate-600' : 'bg-slate-200 dark:bg-slate-700' %>
+    ">
       <%# PROGRESS BAR %>
-      <div class="h-full animate-[4s_linear_1s] <%= habit.progress != 0 ? 'border-2 rounded-l-lg' : 'border-0' %> <%= habit.progress == 100 ? 'bg-yellow-400 border-yellow-500 dark:border-yellow-200 rounded-l-lg' : 'bg-green-400 border-green-500 dark:border-green-300' %>" style="width: <%= habit.progress %>%">
+      <div class="h-full animate-[4s_linear_1s]rounded-l-lg
+        <%= habit.progress == 0 ? 'border-0' : 'border-2' %>
+        <%= 'bg-green-400 border-green-500 dark:border-green-300' %>
+        <%= 'bg-yellow-400 border-yellow-500 dark:border-yellow-200' if habit.progress == 100 %>
+        <%= 'bg-red-500 dark:bg-red-500 border-red-600 dark:border-red-300' if !habit.done_today? %>"
+        style="width: <%= habit.progress %>%
+      ">
         <%# SHINE %>
-        <div class="animate-[4s_linear_1s] h-1/4 rounded-l-lg ml-1 mr-0.5 mt-0.5 <%= habit.progress == 100 ? 'bg-yellow-300 dark:bg-yellow-200 mr-1' : 'bg-green-300' %>"></div>
+        <div class="animate-[4s_linear_1s] h-1/4 rounded-l-lg ml-1 mr-0.5 mt-0.5
+          <%= habit.progress == 100 ? 'bg-yellow-300 dark:bg-yellow-200 mr-1' : 'bg-green-300' %>
+          <%= 'bg-red-400 dark:bg-red-300' if !habit.done_today? %>"
+          "></div>
       </div>
     </div>
 
@@ -88,15 +108,17 @@
     </svg>
   </div>
 
-  <%# NAME %>
-  <h3 class="p-4 grow text-center text-md font-medium tracking-wide">
-    <%= habit.name %>
-  </h3>
-
   <%# LENGTH OF LONGEST STREAK IN DAYS %>
-  <p class="hidden mt-0.5 mr-1.5 mb-3 text-sm self-end <%= habit.done_today? ? 'text-slate-500 dark:text-slate-100' : 'text-slate-600 dark:text-slate-300' %>">
+  <p class="mr-6 text-sm self-end
+    <%= habit.done_today? ? 'text-slate-300 dark:text-slate-600' : 'text-slate-200 dark:text-slate-700' %>
+  ">
     <%= habit.days_as_sentence(habit.longest_streak) %>
   </p>
+
+  <%# NAME %>
+  <h3 class="p-4 h-20 grow text-center text-md font-medium tracking-wide">
+    <%= habit.name %>
+  </h3>
 
   <%# VIEW HABIT LINK %>
   <div class="hidden">
