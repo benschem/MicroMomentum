@@ -1,57 +1,53 @@
 <%# HABIT CARD %>
-<li class= "<%= habit.done_today? ? 'bg-green-200 dark:bg-green-700': 'bg-slate-50 dark:bg-slate-900' %> cursor-pointer text-slate-600 dark:text-slate-50 drop-shadow-lg rounded-xl overflow-clip flex flex-col w-80 m-2">
+<li class= "<%= habit.done_today? ? 'bg-green-200 dark:bg-green-900': 'bg-slate-50 dark:bg-slate-900' %> cursor-pointer text-slate-600 dark:text-slate-50 drop-shadow-lg rounded-xl overflow-clip flex flex-col w-80 m-2">
 
   <%# LINE %>
   <%# < class="h-0.5 w-10/12 self-center my-3 <%= habit.done_today? ? 'bg-green-500 dark:bg-green-300' : 'bg-slate-200 dark:bg-slate-700' %>
 
   <%# LENGTH OF CURRENT STREAK IN DAYS %>
-  <p class="ml-14 mt-4 mb-0.5 place-self-start text-sm tracking-wide
-    <%= 'text-sky-800 dark:text-sky-600' if !habit.done_yesterday?%>
-    <%= 'text-orange-600 dark:text-orange-500' if habit.done_yesterday? && !habit.done_today? %>
-    <%= 'text-green-500 dark:text-green-500' if habit.done_today? %>
-    <%= 'text-yellow-500 dark:text-yellow-200' if habit.done_today? && habit.progress == 100 %>
+  <p class="ml-14 mt-4 mb-0.5 place-self-start text-sm tracking-wide text-green-500 dark:text-green-500
+    <%= 'text-red-600 dark:text-red-600' if !habit.done_yesterday?%>
+    <%= 'text-yellow-500 dark:text-yellow-200' if habit.progress == 100 %>
   ">
     <%= habit.done_yesterday? ? habit.days_as_sentence(habit.current_streak) : "-#{habit.days_as_sentence(habit.current_gap)}" %>
   </p>
   <div class="mx-4 flex flex-row relative place-items-center grow-0 overflow-visible">
     <% if habit.done_today? %>
     <%# TICK %>
-    <svg class="w-9 h-9 absolute left-0 bottom-0" viewBox="0 0 512 512">
-      <path d="m336.76 62.173h-285.64c-28.231 0-51.116 22.886-51.116 51.116v285.64c0 28.231 22.885 51.116 51.116 51.116h285.64c28.231 0 51.116-22.885 51.116-51.116v-285.64c0-28.23-22.885-51.116-51.116-51.116z" fill="#B4BBCC"/>
-      <path d="m313.4 113.93h-238.91c-12.552 0-22.726 10.175-22.726 22.726v238.91c0 12.552 10.175 22.726 22.726 22.726h238.91c12.552 0 22.726-10.175 22.726-22.726v-238.91c2e-3 -12.551-10.174-22.727-22.724-22.727z" fill="#fff"/>
-      <path d="m74.653 159.55c0-12.552 10.175-22.726 22.726-22.726h238.74v-0.171c0-12.552-10.175-22.726-22.726-22.726h-238.91c-12.552 0-22.726 10.175-22.726 22.726v238.91c0 12.552 10.175 22.726 22.726 22.726h0.171v-238.74z" enable-background="new" opacity=".1"/>
-      <path d="m236.94 371.33c-9.206 0-18.139-3.574-24.835-10.102l-116.78-113.83c-14.072-13.718-14.36-36.245-0.643-50.318 13.716-14.074 36.244-14.359 50.317-0.643l85.372 83.218c34.186-48.731 105.49-134.38 226.86-212.08 16.556-10.597 38.558-5.765 49.152 10.783 10.597 16.551 5.768 38.557-10.782 49.153-163.01 104.36-226.5 223.52-227.12 224.71-5.206 9.969-14.819 16.891-25.925 18.666-1.873 0.299-3.75 0.445-5.618 0.445z" fill="#A5EB78"/>
-      </svg>
+    <svg class="w-7 h-7 absolute left-0 bottom-0 mr-0.5" viewBox="0 0 36 36">
+      <path d="M36 32a4 4 0 0 1-4 4H4a4 4 0 0 1-4-4V4a4 4 0 0 1 4-4h28a4 4 0 0 1 4 4v28z" fill="<%= habit.progress == 100 ? '#eab308' : '#22c55e' %>"/>
+      <path d="M29.28 6.362a2.502 2.502 0 0 0-3.458.736L14.936 23.877l-5.029-4.65a2.5 2.5 0 1 0-3.394 3.671l7.209 6.666c.48.445 1.09.665 1.696.665c.673 0 1.534-.282 2.099-1.139c.332-.506 12.5-19.27 12.5-19.27a2.5 2.5 0 0 0-.737-3.458z" fill="#FFF"/>
+    </svg>
     <% elsif habit.done_yesterday? %>
     <%# WARNING %>
     <svg class="w-8 h-8 absolute left-0 bottom-0 mr-0.5" viewBox="0 0 64 64">
-      <path d="M5.9 62c-3.3 0-4.8-2.4-3.3-5.3L29.3 4.2c1.5-2.9 3.9-2.9 5.4 0l26.7 52.5c1.5 2.9 0 5.3-3.3 5.3H5.9z" fill="#ffce31"></path>
-      <g fill="#231f20">
+      <path d="M5.9 62c-3.3 0-4.8-2.4-3.3-5.3L29.3 4.2c1.5-2.9 3.9-2.9 5.4 0l26.7 52.5c1.5 2.9 0 5.3-3.3 5.3H5.9z" fill="#f97316"></path>
+      <g fill="#fff">
       <path d="M27.8 23.6l2.8 18.5c.3 1.8 2.6 1.8 2.9 0l2.7-18.5c.5-7.2-8.9-7.2-8.4 0"></path>
       <circle cx="32" cy="49.6" r="4.2"></circle>
       </g>
     </svg>
     <% else %>
-    <%# NO FIRE %>
-    <svg class="w-11 h-11 absolute left-0">
+    <%# CROSS %>
+    <svg class="w-7 h-7 absolute left-0 bottom-0 mr-0.5" viewBox="0 0 36 36">
+      <path d="M36 32a4 4 0 0 1-4 4H4a4 4 0 0 1-4-4V4a4 4 0 0 1 4-4h28a4 4 0 0 1 4 4v28z" fill="#dc2626"/>
+      <path d="M21.529 18.006l8.238-8.238a2.498 2.498 0 0 0 0-3.535a2.498 2.498 0 0 0-3.535 0l-8.238 8.238l-8.238-8.238a2.498 2.498 0 0 0-3.535 0a2.498 2.498 0 0 0 0 3.535l8.238 8.238l-8.258 8.258a2.498 2.498 0 0 0 1.768 4.267c.64 0 1.28-.244 1.768-.732l8.258-8.259l8.238 8.238c.488.488 1.128.732 1.768.732s1.279-.244 1.768-.732a2.498 2.498 0 0 0 0-3.535l-8.24-8.237z" fill="#FFF"/>
     </svg>
     <% end %>
 
     <%# PROGRESS METER%>
     <div class="mr-8 ml-9 flex h-4 w-11/12 place-items-start rounded-l-lg
-      <%= habit.done_today? ? 'bg-slate-50 dark:bg-slate-600' : 'bg-slate-200 dark:bg-slate-700' %>
+      <%= habit.done_today? ? 'bg-slate-50 dark:bg-slate-500' : 'bg-slate-200 dark:bg-slate-700' %>
     ">
       <%# PROGRESS BAR %>
       <div class="h-full animate-[4s_linear_1s] rounded-l-lg border-0 bg-green-500
-        <%= 'bg-orange-500' if habit.progress == 100 %>
-        <%= 'bg-yellow-500 dark:bg-yellow-500' if !habit.done_today? %>"
-        style="width: <%= habit.progress %>%
-      ">
+        <%= 'bg-yellow-500' if habit.progress == 100 %>"
+        style="width: <%= habit.progress %>%"
+      >
         <%# SHINE %>
         <div class="animate-[4s_linear_1s] h-1/4 rounded-l-lg ml-1 mt-0.5 mr-0.5
-          <%= habit.progress == 100 ? 'bg-orange-300 dark:bg-orange-300 mr-1' : 'bg-green-300' %>
-          <%= 'bg-yellow-400 dark:bg-yellow-300' if !habit.done_today? %>"
-          "></div>
+          <%= habit.progress == 100 ? 'bg-yellow-300 dark:bg-yellow-300 mr-1' : 'bg-green-300' %>
+        "></div>
       </div>
     </div>
 
@@ -72,7 +68,7 @@
     <%# NO RECORD %>
     <%= 'No record yet' if habit.longest_streak == 0 %>
     <%# LENGTH OF LONGEST STREAK IN DAYS %>
-    <%= "#{habit.days_as_sentence(habit.longest_streak)}" if habit.progress <= 100 && !habit.done_today %>
+    <%= "#{habit.days_as_sentence(habit.longest_streak)}" if habit.progress < 100 || (habit.progress == 100 && !habit.done_today) %>
     <%# NEW RECORD %>
     <%= 'New record' if habit.progress == 100 && habit.done_today %>
   </p>
