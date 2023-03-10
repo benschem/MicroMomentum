@@ -5,114 +5,94 @@
   <%# < class="h-0.5 w-10/12 self-center my-3 <%= habit.done_today? ? 'bg-green-500 dark:bg-green-300' : 'bg-slate-200 dark:bg-slate-700' %>
 
   <%# LENGTH OF CURRENT STREAK IN DAYS %>
-  <p class="ml-12 mt-3 place-self-start text-sm tracking-wide
-    <%= habit.done_today? ? 'text-green-500 dark:text-green-300' : 'text-red-600 dark:text-red-500' %>
-    <%= 'text-yellow-500 dark:text-yellow-200' if habit.progress == 100 %>
+  <p class="ml-14 mt-4 place-self-start text-sm tracking-wide
+    <%= 'text-sky-800 dark:text-sky-600' if !habit.done_yesterday?%>
+    <%= 'text-orange-600 dark:text-orange-500' if habit.done_yesterday? && !habit.done_today? %>
+    <%= 'text-green-500 dark:text-green-300' if habit.done_today? %>
+    <%= 'text-yellow-500 dark:text-yellow-200' if habit.done_today? && habit.progress == 100 %>
   ">
     <%= habit.done_yesterday? ? habit.days_as_sentence(habit.current_streak) : "-#{habit.days_as_sentence(habit.current_gap)}" %>
   </p>
   <div class="mx-4 flex flex-row relative place-items-center grow-0 overflow-visible">
-    <% if habit.done_yesterday? %>
+    <% if habit.done_today? %>
     <%# FLAME %>
-    <div class="absolute left-0 rounded-full h-9 w-9 flex items-center justify-center
-      <%= 'border-2 border-green-500 dark:border-green-300' if habit.progress > 0 %>
+    <div class="absolute left-0 rounded-full h-9 w-9 flex items-center justify-center border-2 border-green-500 dark:border-green-300 bg-green-300 dark:bg-green-400
       <%= 'border-yellow-500 dark:border-yellow-200' if habit.progress == 100 %>
-      <%= 'bg-green-300 dark:bg-green-400' if habit.done_yesterday? && habit.progress != 100 %>
-      <%= 'bg-yellow-300 dark:bg-yellow-400' if habit.progress == 100 && habit.done_today? %>
-      <%= 'bg-red-500 dark:bg-red-500 border-red-600 dark:border-red-300' if !habit.done_today? %>
+      <%= 'bg-yellow-300 dark:bg-yellow-400' if habit.progress == 100 %>
 
     ">
-      <svg class="w-6 h-6" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
-        <path d="M57 26.2s-3 2.8-8.1 6.1C47.5 24.2 43.6 14.2 36 2c0 0-2.5 13.1-10.8 25.4c-3.6-5.6-5.2-10-5.2-10C-6 43.5 15.6 62 29.2 62c17.4 0 32.7-8.4 27.8-35.8" fill="#ff9d33"></path>
-        <path d="M46.7 49.4c1.5-3.3 2.6-7.6 2.8-13c0 0-2.1 1.8-5.7 4.1c-1-5.4-3.7-12-9-20.2c0 0-1.7 8.7-7.5 17c-2.5-3.7-3.6-6.7-3.6-6.7c-4.3 6.8-6 12.2-6.1 16.5c-2.4-.9-3.9-1.6-3.9-1.6c4.1 12.2 12.6 14.9 16.4 14.9c6.8 0 13.7-2 20.5-11.7c0-.1-1.5.3-3.9.7" fill="#facc15"></path>
-        <path d="M21.9 43.9s2.8 3.8 4.9 2.9c0 0 4-6.3 9.8-9.8c0 0-1.2 9.6.2 11.3c1.8 2.3 6.7-2.5 6.7-2.5c0 5.7-6.2 12.8-11.8 12.8c-5.4 0-13.2-6.2-9.8-14.7" fill="#fde047"></path>
-        <g fill="#ff9d33">
-        <path d="M49.8 18.1c2.1-3 3.5-6.2 3.5-6.2c3.5 5.8 1.4 9.3-.1 10.4c-2.1 1.6-5.8-.7-3.4-4.2"></path>
-        <path d="m11.6 17.1c-2.1-3.5-2.3-7.9-2.3-7.9-5 7.5-3.1 11.7-1.4 12.9 2.2 1.7 6-0.9 3.7-5"></path>
-        <path d="M23.2 9.3c.3-2.4-.7-4.8-.7-4.8c4.7 3.1 4.7 5.7 4.1 6.8c-.9 1.3-3.7.7-3.4-2"></path>
-        </g>
+      <svg class="w-6 h-6">
+      </svg>
+    </div>
+    <% elsif habit.done_yesterday? %>
+    <%# WARNING %>
+    <div class="absolute left-0 rounded-full h-10 w-10 flex items-center justify-center border-2 bg-orange-400 dark:bg-orange-300 border-orange-600 dark:border-orange-300">
+      <svg class="w-11 h-11">
       </svg>
     </div>
     <% else %>
-    <%# WARNING %>
+    <%# NO FIRE %>
     <div class="absolute left-0 rounded-full h-10 w-10 flex items-center justify-center bg-slate-200 dark:bg-slate-700">
-      <svg class="w-6 h-6 mb-1" viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg">
-        <path d="M57.16 8.42l-52 104c-1.94 4.02-.26 8.85 3.75 10.79c1.08.52 2.25.8 3.45.81h104c4.46-.04 8.05-3.69 8.01-8.15a8.123 8.123 0 0 0-.81-3.45l-52-104a8.067 8.067 0 0 0-14.4 0z" fill="#eab308"></path>
-        <path d="M53.56 15.72l-48.8 97.4c-1.83 3.77-.25 8.31 3.52 10.14c.99.48 2.08.74 3.18.76h97.5a7.55 7.55 0 0 0 7.48-7.62a7.605 7.605 0 0 0-.78-3.28l-48.7-97.4a7.443 7.443 0 0 0-9.93-3.47a7.484 7.484 0 0 0-3.47 3.47z" fill="#facc15"></path>
-        <g fill="#424242" opacity=".2">
-        <path d="M64.36 34.02c4.6 0 8.3 3.7 8 8l-3.4 48c-.38 2.54-2.74 4.3-5.28 3.92a4.646 4.646 0 0 1-3.92-3.92l-3.4-48c-.3-4.3 3.4-8 8-8"></path>
-        <path d="m64.36 98.02c3.31 0 6 2.69 6 6s-2.69 6-6 6-6-2.69-6-6 2.69-6 6-6"></path>
-        </g>
-        <linearGradient id="b" x1="68" x2="68" y1="-1808.4" y2="-1887" gradientTransform="matrix(1 0 0 -1 -3.64 -1776.1)" gradientUnits="userSpaceOnUse">
-        <stop stop-color="#475569" offset="0"></stop>
-        <stop stop-color="#212121" offset="1"></stop>
-        </linearGradient>
-        <path d="M64.36 34.02c4.6 0 8.3 3.7 8 8l-3.4 48c-.38 2.54-2.74 4.3-5.28 3.92a4.646 4.646 0 0 1-3.92-3.92l-3.4-48c-.3-4.3 3.4-8 8-8z" fill="url(#b)"></path>
-        <linearGradient id="a" x1="64.36" x2="64.36" y1="-1808.4" y2="-1887" gradientTransform="matrix(1 0 0 -1 0 -1772.1)" gradientUnits="userSpaceOnUse">
-        <stop stop-color="#475569" offset="0"></stop>
-        <stop stop-color="#212121" offset="1"></stop>
-        </linearGradient>
-        <circle cx="64.36" cy="104.02" r="6" fill="url(#a)"></circle>
-        <path d="M53.56 23.02c-1.2 1.5-21.4 41-21.4 41s-1.8 3 .7 4.7c2.3 1.6 4.4-.3 5.3-1.8s19.2-36.9 19.9-38.6c.6-1.87.18-3.91-1.1-5.4c-1.3-1.2-2.6-1-3.4.1z" fill="#Fde047"></path>
-        <circle cx="31.36" cy="75.33" r="3.3" fill="#Fde047"></circle>
+      <svg class="w-11 h-11"> version="1.1" viewBox="0 0 512 512" xml:space="preserve" xmlns="http://www.w3.org/2000/svg">
       </svg>
     </div>
     <% end %>
 
     <%# PROGRESS METER%>
-    <div class="ml-2.5 flex h-4 w-11/12 place-items-start rounded-l-lg
+    <div class="mr-1 ml-2.5 flex h-4 w-11/12 place-items-start rounded-l-lg
       <%= habit.done_today? ? 'bg-slate-50 dark:bg-slate-600' : 'bg-slate-200 dark:bg-slate-700' %>
     ">
       <%# PROGRESS BAR %>
-      <div class="h-full animate-[4s_linear_1s]rounded-l-lg
+      <div class="mr-1 h-full animate-[4s_linear_1s]rounded-l-lg
         <%= habit.progress == 0 ? 'border-0' : 'border-2' %>
         <%= 'bg-green-400 border-green-500 dark:border-green-300' %>
         <%= 'bg-yellow-400 border-yellow-500 dark:border-yellow-200' if habit.progress == 100 %>
-        <%= 'bg-red-500 dark:bg-red-500 border-red-600 dark:border-red-300' if !habit.done_today? %>"
+        <%= 'bg-orange-500 dark:bg-orange-500 border-orange-600 dark:border-orange-300' if !habit.done_today? %>"
         style="width: <%= habit.progress %>%
       ">
         <%# SHINE %>
         <div class="animate-[4s_linear_1s] h-1/4 rounded-l-lg ml-1 mr-0.5 mt-0.5
           <%= habit.progress == 100 ? 'bg-yellow-300 dark:bg-yellow-200 mr-1' : 'bg-green-300' %>
-          <%= 'bg-red-400 dark:bg-red-300' if !habit.done_today? %>"
+          <%= 'bg-orange-400 dark:bg-orange-300' if !habit.done_today? %>"
           "></div>
       </div>
     </div>
 
     <%# TROPHY %>
-    <svg class="w-6 h-6 ml-1" version="1.1" viewBox="0 0 512 512" xml:space="preserve" xmlns="http://www.w3.org/2000/svg">
-      <rect x="142.85" y="486.51" width="225.65" height="24.763" fill="#a46a32"/>
-      <path d="m223.07 256.17v60.773c8.126 0 14.712 6.587 14.712 14.712v96.74h36.49v-96.74c0-8.126 6.587-14.712 14.712-14.712v-50.773h-65.914z" fill="#eab308"/>
-      <rect x="223.06" y="251.21" width="65.919" height="40.689" enable-background="new" fill="#8f5d2c" opacity=".16"/>
-      <path d="m274.38 271.34h-36.756c-50.613 0-91.644-41.03-91.644-91.644v-179.7h220.04v179.7c1e-3 50.614-41.03 91.644-91.643 91.644z" fill="#facc15"/>
-      <g fill="#8f5d2c">
-        <path d="m334.83 463.28h-157.34v-32.574c0-6.801 5.513-12.314 12.314-12.314h132.72c6.801 0 12.314 5.513 12.314 12.314v32.574h1e-3z"/>
-        <rect x="142.85" y="452.84" width="225.78" height="58.726"/>
-      </g>
-      <g fill="#a46a32">
-        <path d="m310.42 430.73 0.109 22.353 24.403-0.046-0.109-22.307c-0.013-6.801-5.536-12.305-12.338-12.291l-23.489 0.044c6.373 0.457 11.412 5.754 11.424 12.247z"/>
-        <polygon points="368.62 452.85 344.21 452.9 344.32 511.57 142.95 511.95 142.95 512 368.73 511.57"/>
-      </g>
-      <g fill="#facc15">
-        <path d="m99.268 40.707c-35.955 0-65.102 29.147-65.102 65.102s29.147 65.102 65.102 65.102h46.71v-130.2h-46.71zm21.302 96.918h-23.243c-17.89 0-32.393-14.502-32.393-32.393s14.503-32.392 32.393-32.392h23.242v64.785h1e-3z"/>
-        <path d="m412.73 40.707h-46.71v130.2h46.71c35.955 0 65.102-29.147 65.102-65.102s-29.147-65.101-65.102-65.101zm1.94 98.071h-23.242v-64.785h23.242c17.89 0 32.393 14.502 32.393 32.393s-14.503 32.392-32.393 32.392z"/>
-      </g>
-      <rect x="145.97" y="75.284" width="219.83" height="77.612" fill="#eab308"/>
-      <path d="m189 184.95c-4.324 0-7.83-3.506-7.83-7.83v-149.37c0-4.324 3.506-7.83 7.83-7.83s7.83 3.506 7.83 7.83v149.37c1e-3 4.324-3.505 7.83-7.83 7.83z" fill="#Fde047"/>
-      <g fill="#8f5d2c">
-        <rect x="366.02" y="40.707" width="14.996" height="129.11" enable-background="new" opacity=".16"/>
-        <rect x="130.98" y="40.667" width="14.996" height="129.11" enable-background="new" opacity=".16"/>
-        <path d="m335.94 0v157.46c0 50.613-41.03 91.644-91.644 91.644h-36.756c-13.653 0-26.606-2.99-38.246-8.344 16.782 18.763 41.172 30.576 68.326 30.576h36.756c50.613 0 91.644-41.03 91.644-91.644v-179.7h-30.08z" enable-background="new" opacity=".31"/>
-      </g>
-      <rect x="177.48" y="439.03" width="136.02" height="14.046" fill="#a46a32"/>
-    </svg>
+    <div class="absolute right-0 rounded-full h-10 w-10 flex items-center justify-center">
+      <svg class="w-6 h-6" <?xml version="1.1" viewBox="0 0 512 512" xml:space="preserve">
+        <polygon points="371.41 282.91 371.41 504.38 254.39 465.16 140.59 504.38 140.59 282.91" fill="#5374FC"/>
+        <polygon points="195.72 303.24 195.72 485.35 254.32 465.16 310.58 484.02 310.58 303.24" fill="#5697FC"/>
+        <path d="m140.59 332.05c30.214 28.241 70.788 45.537 115.41 45.537 44.62 0 85.196-17.296 115.41-45.537v-65.194h-230.82v65.194z" enable-background="new" fill="#373BAE" opacity=".34"/>
+        <circle cx="256" cy="176.68" r="169.06" fill="#FACC15"/>
+        <path d="m368.5 49.146c12.625 23.679 19.791 50.711 19.791 79.419 0 93.366-75.688 169.06-169.05 169.06-42.468 0-81.276-15.663-110.97-41.523 28.436 53.331 84.606 89.636 149.26 89.636 93.366 0 169.06-75.689 169.06-169.06-1e-3 -50.898-22.497-96.539-58.086-127.53z" enable-background="new" fill="#663C1D" opacity=".09"/>
+        <circle cx="256" cy="176.68" r="130.47" fill="#EAB300"/>
+        <polygon points="256 86.075 276.51 149.19 342.87 149.19 289.18 188.2 309.69 251.31 256 212.31 202.31 251.31 222.82 188.2 169.13 149.19 235.49 149.19" fill="#FFDA44"/>
+        <path d="m196.03 292.16 175.45-175.46c-11.973-23.513-30.863-42.914-53.991-55.518l-176.98 176.98c12.605 23.128 32.005 42.018 55.518 53.992z" enable-background="new" fill="#fff" opacity=".18"/>
+        <path d="m256 314.77c76.145 0 138.09-61.949 138.09-138.09s-61.948-138.1-138.09-138.1-138.09 61.949-138.09 138.09 61.948 138.1 138.09 138.1zm0-260.94c67.737 0 122.84 55.108 122.84 122.84s-55.108 122.84-122.84 122.84c-67.738 0-122.85-55.108-122.85-122.84s55.109-122.84 122.85-122.84z"/>
+        <path d="m432.68 176.68c0-97.42-79.258-176.68-176.68-176.68-97.421 0-176.68 79.258-176.68 176.68 0 49.632 20.58 94.542 53.645 126.67v201.03c0 2.464 1.191 4.777 3.198 6.207 1.309 0.933 2.86 1.417 4.427 1.417 0.834 0 1.673-0.137 2.482-0.416l111.35-38.369 114.56 38.391c2.326 0.779 4.885 0.391 6.876-1.04 1.99-1.432 3.171-3.736 3.171-6.189v-201.03c33.065-32.126 53.646-77.035 53.646-126.67zm-338.11 0c0-89.012 72.418-161.43 161.43-161.43s161.43 72.417 161.43 161.43-72.416 161.43-161.43 161.43-161.43-72.416-161.43-161.43zm53.645 139.89c12.178 9.404 25.608 17.258 40 23.259-0.031 0.275-0.048 0.553-0.048 0.837v139.25l-39.952 13.767v-177.12zm103.69 141.39-48.489 16.709v-129.3c16.617 5.191 34.28 7.99 52.585 7.99 16.281 0 32.05-2.224 47.032-6.367v126.43l-46.22-15.488c-1.595-0.535-3.32-0.528-4.908 0.02zm111.88 35.826-45.505-15.249v-136.52c16.479-6.228 31.788-14.85 45.505-25.444v177.21z"/>
+        <path d="m172 157.01 44.663 32.449-17.059 52.504c-1.021 3.141 0.098 6.582 2.77 8.524 2.673 1.941 6.291 1.941 8.962 0l44.663-32.449 44.663 32.449c1.336 0.971 2.908 1.456 4.481 1.456s3.145-0.486 4.481-1.456c2.673-1.942 3.791-5.383 2.77-8.525l-17.06-52.504 44.663-32.449c2.673-1.942 3.791-5.383 2.77-8.525-1.021-3.141-3.948-5.268-7.251-5.268h-55.206l-17.061-52.503c-1.021-3.141-3.948-5.269-7.251-5.269s-6.231 2.127-7.251 5.268l-17.06 52.504h-55.206c-3.303 0-6.231 2.127-7.251 5.268-1.019 3.143 0.099 6.585 2.77 8.526zm65.228 1.456c3.303 0 6.231-2.127 7.251-5.268l11.521-35.455 11.52 35.455c1.021 3.141 3.948 5.269 7.251 5.269h37.28l-30.16 21.913c-2.673 1.942-3.791 5.383-2.77 8.524l11.521 35.455-30.161-21.913c-2.673-1.941-6.291-1.941-8.962 0l-30.161 21.913 11.52-35.456c1.021-3.141-0.098-6.582-2.77-8.524l-30.16-21.913h37.28z"/>
+      </svg>
+    </div>
   </div>
 
   <%# LENGTH OF LONGEST STREAK IN DAYS %>
-  <p class="mr-6 text-sm self-end
-    <%= habit.done_today? ? 'text-slate-300 dark:text-slate-600' : 'text-slate-200 dark:text-slate-700' %>
+  <p class="mr-8 text-sm self-end text-yellow-500 dark:text-yellow-200
+    <%= 'hidden' if habit.progress == 100 && habit.done_today %>
   ">
     <%= habit.days_as_sentence(habit.longest_streak) %>
+  </p>
+  <%# NEW RECORD %>
+  <p class="mr-8 text-sm self-end text-yellow-500 dark:text-yellow-200
+    <%= 'hidden' unless habit.progress == 100 && habit.done_today %>
+  ">
+    New record
+  </p>
+  <%# NO RECORD %>
+  <p class="mr-8 text-sm self-end text-yellow-500 dark:text-yellow-200
+    <%= 'hidden' unless habit.progress == 0 %>
+  ">
+    No record yet
   </p>
 
   <%# NAME %>
