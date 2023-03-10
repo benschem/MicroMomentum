@@ -1,11 +1,11 @@
 <%# HABIT CARD %>
-<li class= "<%= habit.done_today? ? 'bg-green-200 dark:bg-green-900': 'bg-slate-50 dark:bg-slate-900' %> cursor-pointer text-slate-600 dark:text-slate-50 drop-shadow-lg rounded-xl overflow-clip flex flex-col w-80 m-2">
+<li class= "<%= habit.done_today? ? 'bg-green-200 dark:bg-green-900': 'bg-slate-50 dark:bg-slate-900' %> cursor-pointer text-slate-600 dark:text-slate-50 drop-shadow-lg rounded-xl overflow-clip flex flex-col w-80 md:w-96 m-2">
 
   <%# LINE %>
   <%# < class="h-0.5 w-10/12 self-center my-3 <%= habit.done_today? ? 'bg-green-500 dark:bg-green-300' : 'bg-slate-200 dark:bg-slate-700' %>
 
   <%# LENGTH OF CURRENT STREAK IN DAYS %>
-  <p class="ml-14 mt-4 mb-0.5 place-self-start text-sm tracking-wide text-green-500 dark:text-green-500
+  <p class="ml-14 mt-4 mb-0.5 place-self-start text-sm md:text-md tracking-wide text-green-500 dark:text-green-500
     <%= 'text-red-600 dark:text-red-600' if !habit.done_yesterday?%>
     <%= 'text-yellow-500 dark:text-yellow-200' if habit.progress == 100 %>
   ">
@@ -64,7 +64,7 @@
     </div>
   </div>
 
-  <p class="mr-8 mt-1 text-sm self-end text-yellow-500 dark:text-yellow-200">
+  <p class="mr-8 mt-1 text-sm md:text-md self-end text-yellow-500 dark:text-yellow-200">
     <%# NO RECORD %>
     <%= 'No record yet' if habit.longest_streak == 0 %>
     <%# LENGTH OF LONGEST STREAK IN DAYS %>
@@ -74,9 +74,11 @@
   </p>
 
   <%# NAME %>
-  <h3 class="p-4 h-20 grow text-center text-md font-medium tracking-wide">
-    <%= habit.name %>
-  </h3>
+  <div class="flex m-4 h-12">
+    <h3 class="grow self-center justify-self-center text-center text-md md:text-lg font-medium tracking-wide">
+      <%= habit.name %>
+    </h3>
+  </div>
 
   <%# VIEW HABIT LINK %>
   <div class="hidden">
